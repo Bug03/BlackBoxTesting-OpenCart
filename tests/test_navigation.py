@@ -6,6 +6,22 @@ import re
 
 class TestNavigation(Driver):
     def test_drop_down_inner_desktops(self, driver):
+        """
+        Test the drop down inner desktops navigation
+        Notes:
+             Steps:
+                1. Go to the home page
+                2. Click on Desktops > Show All Desktops
+                3. Verify the page name and the number of products
+                4. Click on Desktops > PC
+                5. Verify the page name and the number of products
+                6. Click on Desktops > Mac
+                7. Verify the page name and the number of products
+             Expected results:
+                - The page name should match the expected page name
+                - The number of products should match the expected number of products
+                - The URL should contain "product/category"
+        """
         navigation = Navigation(driver)
         navigation.go_to_home_page()
 
@@ -15,27 +31,48 @@ class TestNavigation(Driver):
             ("Mac (1)", navigation.drop_down_inner_desktops_mac, 1)
         ]
 
+        errors = []
+
         for expected_page_name, method, expected_count in test_cases:
+            method()
+            page_name = navigation.pageName
+            print("Expected page name: ", expected_page_name)
+
+            # Extract the number of products from the actual page name string
+            product_count = 0
+            for name in page_name:
+                if expected_page_name.split(' (')[0] in name:
+                    match = re.search(r'\((\d+)\)', name)
+                    if match:
+                        product_count = int(match.group(1))
+                        break
+
             try:
-                method()
-                page_name = navigation.pageName
-                print("Expected page name: ", expected_page_name)
-
-                # Extract the number of products from the actual page name string
-                product_count = 0
-                for name in page_name:
-                    if expected_page_name.split(' (')[0] in name:
-                        match = re.search(r'\((\d+)\)', name)
-                        if match:
-                            product_count = int(match.group(1))
-                            break
-
                 assert product_count == expected_count, f"Expected {expected_count} products for {expected_page_name}, but found {product_count}."
                 assert "product/category" in navigation.get_current_url()
             except AssertionError as e:
-                print(f"Assertion error for {expected_page_name}: {e}")
+                errors.append(f"Assertion error for {expected_page_name}: {e}")
+
+        if errors:
+            raise AssertionError("Errors occurred:\n" + "\n".join(errors))
 
     def test_drop_down_inner_laptops_and_notebooks(self, driver):
+        """
+        Test the drop down inner laptops and notebooks navigation
+        Notes:
+                Steps:
+                    1. Go to the home page
+                    2. Click on Laptops & Notebooks > Show All Laptops & Notebooks
+                    3. Verify the page name and the number of products
+                    4. Click on Laptops & Notebooks > Macs
+                    5. Verify the page name and the number of products
+                    6. Click on Laptops & Notebooks > Windows
+                    7. Verify the page name and the number of products
+                Expected results:
+                    - The page name should match the expected page name
+                    - The number of products should match the expected number of products
+                    - The URL should contain "product/category"
+        """
         navigation = Navigation(driver)
         navigation.go_to_home_page()
 
@@ -45,27 +82,54 @@ class TestNavigation(Driver):
             ("Windows (2)", navigation.drop_down_inner_laptops_and_notebooks_windows, 2)
         ]
 
+        errors = []
+
         for expected_page_name, method, expected_count in test_cases:
+            method()
+            page_name = navigation.pageName
+            print("Expected page name: ", expected_page_name)
+
+            # Extract the number of products from the actual page name string
+            product_count = 0
+            for name in page_name:
+                if expected_page_name.split(' (')[0] in name:
+                    match = re.search(r'\((\d+)\)', name)
+                    if match:
+                        product_count = int(match.group(1))
+                        break
+
             try:
-                method()
-                page_name = navigation.pageName
-                print("Expected page name: ", expected_page_name)
-
-                # Extract the number of products from the actual page name string
-                product_count = 0
-                for name in page_name:
-                    if expected_page_name.split(' (')[0] in name:
-                        match = re.search(r'\((\d+)\)', name)
-                        if match:
-                            product_count = int(match.group(1))
-                            break
-
                 assert product_count == expected_count, f"Expected {expected_count} products for {expected_page_name}, but found {product_count}."
                 assert "product/category" in navigation.get_current_url()
             except AssertionError as e:
-                print(f"Assertion error for {expected_page_name}: {e}")
+                errors.append(f"Assertion error for {expected_page_name}: {e}")
+
+        if errors:
+            raise AssertionError("Errors occurred:\n" + "\n".join(errors))
 
     def test_drop_down_inner_components(self, driver):
+        """
+        Test the drop down inner components navigation
+        Notes:
+            Steps:
+                1. Go to the home page
+                2. Click on Components > Show All Components
+                3. Verify the page name and the number of products
+                4. Click on Components > Mice and Trackballs
+                5. Verify the page name and the number of products
+                6. Click on Components > Monitors
+                7. Verify the page name and the number of products
+                8. Click on Components > Printers
+                9. Verify the page name and the number of products
+                10. Click on Components > Scanners
+                11. Verify the page name and the number of products
+                12. Click on Components > Web Cameras
+                13. Verify the page name and the number of products
+            Expected results:
+                - The page name should match the expected page name
+                - The number of products should match the expected number of products
+                - The URL should contain "product/category"
+        """
         navigation = Navigation(driver)
         navigation.go_to_home_page()
 
@@ -79,26 +143,35 @@ class TestNavigation(Driver):
         ]
 
         for expected_page_name, method, expected_count in test_cases:
-            try:
-                method()
-                page_name = navigation.pageName
-                print("Expected page name: ", expected_page_name)
+            method()
+            page_name = navigation.pageName
+            print("Expected page name: ", expected_page_name)
 
-                # Extract the number of products from the actual page name string
-                product_count = 0
-                for name in page_name:
-                    if expected_page_name.split(' (')[0] in name:
-                        match = re.search(r'\((\d+)\)', name)
-                        if match:
-                            product_count = int(match.group(1))
-                            break
+            # Extract the number of products from the actual page name string
+            product_count = 0
+            for name in page_name:
+                if expected_page_name.split(' (')[0] in name:
+                    match = re.search(r'\((\d+)\)', name)
+                    if match:
+                        product_count = int(match.group(1))
+                        break
 
-                assert product_count == expected_count, f"Expected {expected_count} products for {expected_page_name}, but found {product_count}."
-                assert "product/category" in navigation.get_current_url()
-            except AssertionError as e:
-                print(f"Assertion error for {expected_page_name}: {e}")
+            assert product_count == expected_count, f"Expected {expected_count} products for {expected_page_name}, but found {product_count}."
+            assert "product/category" in navigation.get_current_url()
 
     def test_show_all_tablets(self, driver):
+        """
+        Test the show all tablets navigation
+        Notes:
+            Steps:
+                1. Go to the home page
+                2. Click on Tablets > Show All Tablets
+                3. Verify the page name and the number of products
+            Expected results:
+                - The page name should match the expected page name
+                - The number of products should match the expected number of products
+                - The URL should contain "product/category"
+        """
         navigation = Navigation(driver)
         navigation.go_to_home_page()
 
@@ -127,6 +200,18 @@ class TestNavigation(Driver):
                 print(f"Assertion error for {expected_page_name}: {e}")
 
     def test_show_all_software(self, driver):
+        """
+        Test the show all software navigation
+        Notes:
+            Steps:
+                1. Go to the home page
+                2. Click on Software > Show All Software
+                3. Verify the page name and the number of products
+            Expected results:
+                - The page name should match the expected page name
+                - The number of products should match the expected number of products
+                - The URL should contain "product/category"
+        """
         navigation = Navigation(driver)
         navigation.go_to_home_page()
 
@@ -155,6 +240,18 @@ class TestNavigation(Driver):
                 print(f"Assertion error for {expected_page_name}: {e}")
 
     def test_show_all_phones_and_pdas(self, driver):
+        """
+        Test the show all phones and pdas navigation
+        Notes:
+            Steps:
+                1. Go to the home page
+                2. Click on Phones & PDAs > Show All Phones & PDAs
+                3. Verify the page name and the number of products
+            Expected results:
+                - The page name should match the expected page name
+                - The number of products should match the expected number of products
+                - The URL should contain "product/category"
+        """
         navigation = Navigation(driver)
         navigation.go_to_home_page()
 
@@ -183,6 +280,18 @@ class TestNavigation(Driver):
                 print(f"Assertion error for {expected_page_name}: {e}")
 
     def test_show_all_cameras(self, driver):
+        """
+        Test the show all cameras navigation
+        Notes:
+            Steps:
+                1. Go to the home page
+                2. Click on Cameras > Show All Cameras
+                3. Verify the page name and the number of products
+            Expected results:
+                - The page name should match the expected page name
+                - The number of products should match the expected number of products
+                - The URL should contain "product/category"
+        """
         navigation = Navigation(driver)
         navigation.go_to_home_page()
 
@@ -211,6 +320,18 @@ class TestNavigation(Driver):
                 print(f"Assertion error for {expected_page_name}: {e}")
 
     def test_show_all_mp3_players(self, driver):
+        """
+        Test the show all mp3 players navigation
+        Notes:
+            Steps:
+                1. Go to the home page
+                2. Click on MP3 Players > Show All MP3 Players
+                3. Verify the page name and the number of products
+            Expected results:
+                - The page name should match the expected page name
+                - The number of products should match the expected number of products
+                - The URL should contain "product/category"
+        """
         navigation = Navigation(driver)
         navigation.go_to_home_page()
 

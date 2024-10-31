@@ -9,9 +9,16 @@ from pages.search import Search
 class TestCheckout(Driver):
     def test_checkout_guest(self, driver):
         """
-        Test checkout as guest
+        Test checkout as guest.
+
+        Steps:
+        1. Prepare the product before checkout.
+        2. Navigate to the checkout page.
+        3. Fill in the guest checkout details.
+        4. Assert that the order has been placed successfully.
+
         Args:
-            driver: webdriver
+            driver: WebDriver instance.
         """
         checkout = Checkout(driver)
         checkout.prepare_product_before_checkout()
@@ -32,9 +39,16 @@ class TestCheckout(Driver):
 
     def test_checkout_register(self, driver):
         """
-        Test checkout as register
+        Test checkout as registered user.
+
+        Steps:
+        1. Prepare the product before checkout.
+        2. Navigate to the checkout page.
+        3. Fill in the registered user checkout details.
+        4. Assert that the order has been placed successfully.
+
         Args:
-            driver: webdriver
+            driver: WebDriver instance.
         """
         checkout = Checkout(driver)
         checkout.prepare_product_before_checkout()
@@ -56,9 +70,16 @@ class TestCheckout(Driver):
 
     def test_checkout_guest_invalid(self, driver):
         """
-        Test checkout as guest with invalid data
+        Test checkout as guest with invalid data.
+
+        Steps:
+        1. Prepare the product before checkout.
+        2. Navigate to the checkout page.
+        3. Fill in the guest checkout details with invalid data.
+        4. Assert that the appropriate error messages are displayed.
+
         Args:
-            driver: webdriver
+            driver: WebDriver instance.
         """
         checkout = Checkout(driver)
         checkout.prepare_product_before_checkout()
@@ -85,9 +106,16 @@ class TestCheckout(Driver):
 
     def test_checkout_register_invalid(self, driver):
         """
-        Test checkout as register with invalid data
+        Test checkout as registered user with invalid data.
+
+        Steps:
+        1. Prepare the product before checkout.
+        2. Navigate to the checkout page.
+        3. Fill in the registered user checkout details with invalid data.
+        4. Assert that the appropriate error messages are displayed.
+
         Args:
-            driver: webdriver
+            driver: WebDriver instance.
         """
         checkout = Checkout(driver)
         checkout.prepare_product_before_checkout()

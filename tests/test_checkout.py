@@ -36,7 +36,6 @@ class TestCheckout(Driver):
         )
         assert checkout.get_message() == 'Your order has been placed!'
 
-
     def test_checkout_register(self, driver):
         """
         Test checkout as registered user.
@@ -56,7 +55,7 @@ class TestCheckout(Driver):
         checkout.fill_checkout_register_details(
             first_name='John',
             last_name='Doe',
-            email= "hihihihihi@gmail.com",
+            email= "newemail@gmail.com",
             password= '123456',
             company='Test Company',
             address='Test Address',
@@ -66,7 +65,6 @@ class TestCheckout(Driver):
             region='Ho Chi Minh City'
         )
         assert checkout.get_message() == 'Your order has been placed!'
-
 
     def test_checkout_guest_invalid(self, driver):
         """
@@ -102,7 +100,6 @@ class TestCheckout(Driver):
         assert checkout.get_error_message('email_not_exist') == 'E-Mail address does not appear to be valid!'
         assert checkout.get_error_message('address_not_exist') == 'Address 1 must be between 3 and 128 characters!'
         assert checkout.get_error_message('city_not_exist') == 'City must be between 2 and 128 characters!'
-
 
     def test_checkout_register_invalid(self, driver):
         """

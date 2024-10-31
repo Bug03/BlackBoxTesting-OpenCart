@@ -16,8 +16,6 @@ class Navigation:
         print(f"Actual Page names: {self.pageName}")
         return self.pageName
 
-
-
     def show_all_desktops(self):
         self.driver.find_element(By.XPATH,'/html/body/main/div[1]/nav/div[2]/ul/li[1]/a').click()
         self.driver.find_element(By.XPATH,'//*[@id="narbar-menu"]/ul/li[1]/div/a').click()

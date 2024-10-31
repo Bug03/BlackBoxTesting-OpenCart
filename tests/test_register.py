@@ -10,7 +10,7 @@ class TestRegister(Driver):
         # Go to register page
         register_page.go_to_register_page()
         # Register
-        register_page.register('Danh', 'Nguyen', 'demo1234@gmail.com', '1234')
+        register_page.register('Danh', 'Nguyen', 'newemail@gmail.com', '1234')
         # index.php?route=account/account
         time.sleep(2)
         assert "account/success" in register_page.get_current_url()
@@ -21,7 +21,7 @@ class TestRegister(Driver):
         # Go to register page
         register_page.go_to_register_page()
         # Register
-        register_page.register('', '', 'demo1234@gmail.com', '1234')
+        register_page.register('', '', 'newemail@gmail.com', '1234')
         # error message is displayed
         notification = register_page.get_error_message()
 
